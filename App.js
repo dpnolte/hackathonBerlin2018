@@ -10,6 +10,11 @@ import React, {Component} from 'react';
 import {Platform, StyleSheet, Text, View, Image,TouchableOpacity, WebView, YellowBox, Animated } from 'react-native';
 import base64 from 'base-64';
 import Video from 'react-native-video';
+import {
+  PanGestureHandler,
+  ScrollView,
+  State,
+} from 'react-native-gesture-handler';
 import { Topbar } from './Topbar';
 import { Slide } from './Slide';
 import Swiper from './Swiper';
@@ -17,6 +22,7 @@ import { DESTINATIONS } from './destinations';
 YellowBox.ignoreWarnings(['Require cycle:']);
 
 const video = require('./assets/video/demo-destination-tinder.mp4');
+const video2 = require('./assets/video/video2.mp4');
 
 type Props = {};
 type Destination = {
@@ -58,6 +64,7 @@ export default class App extends Component<Props, StateType> {
     });
     this.setState({
       completed: false,
+      videoShown: false,
       currentDestination: 0,
       offerCount: 0,
       destinations: destinations
@@ -193,6 +200,16 @@ export default class App extends Component<Props, StateType> {
     ]).start();
   }
 
+  getVideoSource() {
+    const { destinations } = this.state;
+    const berlinAsDestination = destinations.find(d => d.name === 'berlin');
+    if (berlinAsDestination && berlinAsDestination.selected === true) {
+      return video2;
+    } else {
+      return video;
+    }
+  }
+
   render() {
     const { swipingLeft, swipingRight, destinations, completed, destinationUrl, offerCount, animatedBackground, videoShown } = this.state;
     console.log("rendering App");
@@ -238,7 +255,7 @@ export default class App extends Component<Props, StateType> {
         {completed === true && videoShown === false && (
           <Video 
             style={styles.video}
-            source={video}
+            source={this.getVideoSource()}
             onBuffer={() => {}}                // Callback when remote video is buffering        
             onError={() => console.log('video error')} 
             onEnd={() => {

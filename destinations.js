@@ -28,7 +28,7 @@ export const DESTINATIONS = [
     "value": "652"
   },
   {
-    "name": "berlin_brandenburg",
+    "name": "berlin",
     "selected": false,
     processed: false,
     "key": "regionList",

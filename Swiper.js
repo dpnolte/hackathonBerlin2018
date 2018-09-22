@@ -8,6 +8,8 @@ import {
   PanResponder,
   Dimensions,
   Platform,
+  Text,
+
   BackHandler,
   TouchableOpacity,
   TouchableNativeFeedback
@@ -213,6 +215,10 @@ export default class SwiperAnimated extends PureComponent {
     this.lastY = 0;
 
     this.cardAnimation = null;
+
+    this.onMoveX = 0;
+    this.onFirstX = 0;
+    this.recordedStart = false;
   }
 
   
@@ -224,14 +230,19 @@ export default class SwiperAnimated extends PureComponent {
       onPanResponderTerminationRequest: () => this.props.allowGestureTermination,
       onPanResponderMove: this.handlePanResponderMove(),
       onPanResponderRelease: this.handlePanResponderEnd,
-      onStartShouldSetPanResponder: (evt, gestureState) => console.log(gestureState),
-      onMoveShouldSetPanResponder: (evt, gestureState) => this.trackMove(evt, gestureState),
+      //onStartShouldSetPanResponder: (evt, gestureState) => { this.recordedStart = false; },
+      //onMoveShouldSetPanResponder: (evt, gestureState) => ,
     });
   }
 
   trackMove(evt, gestureState) { 
-    console.log(gestureState);
-    if (gestureState.dx > 0.1) {
+    /*if (this.recordedStart === false) {
+      this.onFirstX = gestureState.moveX;
+    }*/
+    this.onMoveX = gestureState.moveX;
+    this.onFirstX = gestureState.dx;
+    //const constraint = Platform.OS === "ios" ? 0 : 0.1;
+    if (gestureState.dx > 0) {
       this.props.onSwipingRight();
     } else {
       this.props.onSwipingLeft();
@@ -267,10 +278,12 @@ export default class SwiperAnimated extends PureComponent {
     return false;
   }
 
-  handleMoveShouldSetPanResponder = (e, gestureState) =>
-  Math.abs(gestureState.dx) > 5 || Math.abs(gestureState.dy) > 5;
+  handleMoveShouldSetPanResponder = (e, gestureState) => {
+    this.trackMove(e, gestureState);
+    return Math.abs(gestureState.dx) > 5 || Math.abs(gestureState.dy) > 5;
+  }
 
-  handlePanResponderGrant = () => {
+  handlePanResponderGrant = (e, gestureState) => {
     this.pan.setOffset({ x: this.valueX, y: this.valueY });
     this.pan.setValue({ x: 0, y: 0 });
   };e
@@ -711,6 +724,11 @@ export default class SwiperAnimated extends PureComponent {
   render() {
     const { stack, renderHeader, style: propStyle, showPagination } = this.props;
 
+
+    /*
+    <Text>Start: {this.onFirstX}</Text>
+        <Text>Move: {this.onMoveX}</Text>
+        */
     return (
       <View style={[styles.container, propStyle]}>
         {renderHeader(this.currentIndex[this.guid])}

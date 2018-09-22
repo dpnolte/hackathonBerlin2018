@@ -3,7 +3,7 @@ export const IMAGES = {
   ibiza: require("./assets/images/Ibiza-beach-party.jpg"),
   sardinien: require("./assets/images/Olbia_Sardinien_Italien-1200x700.jpg"),
   lissabon: require("./assets/images/Lissabon.jpg"),
-  berlin_brandenburg: require("./assets/images/berlin-1400x788-1.jpg"),
+  berlin: require("./assets/images/berlin-1400x788-1.jpg"),
   genf: require("./assets/images/genf.jpg"),
   provence: require("./assets/images/provence.jpg"),
   animation: require("./assets/images/ani,clb.png"),
