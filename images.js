@@ -1,0 +1,17 @@
+export const IMAGES = {
+  sport: require("./assets/images/spt,sws,sbs,shb,sgl,srd,sae,sfr,stn,sdv.jpg"),
+  ibiza: require("./assets/images/Ibiza-beach-party.jpg"),
+  sardinien: require("./assets/images/Olbia_Sardinien_Italien-1200x700.jpg"),
+  lissabon: require("./assets/images/Lissabon.jpg"),
+  berlin_brandenburg: require("./assets/images/berlin-1400x788-1.jpg"),
+  genf: require("./assets/images/genf.jpg"),
+  provence: require("./assets/images/provence.jpg"),
+  animation: require("./assets/images/ani,clb.png"),
+  beach: require("./assets/images/bea,ben.jpg"),
+  family: require("./assets/images/ecc,chf,fbs,fcp,fpr.jpg"),
+  mallorca: require("./assets/images/mallorca-1.jpg"),
+  pool: require("./assets/images/pol,ipl.jpg"),
+  breakfast: require("./assets/images/UF.png"),
+  full: require("./assets/images/VP.png"),
+  wellness: require("./assets/images/wel,wms,way,wth,wcu,wsn,wdt,waa,wbf,wac,wap.jpg"),
+};
